@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Header, Hero, Stats } from "../sections";
+import { Contact, Footer, Header, Hero, Stats } from "../sections";
 
 export default function Home() {
   return (
@@ -12,7 +12,9 @@ export default function Home() {
 
       <Header />
       <Hero />
-      {/* <Stats /> */}
+      <Stats />
+      <Contact />
+      <Footer />
     </div>
   );
 }

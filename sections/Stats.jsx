@@ -4,23 +4,24 @@ import {
   BuildingOffice2Icon,
   HomeModernIcon,
 } from "@heroicons/react/24/outline";
+
 function Stats() {
   return (
-    <ul className="container mx-auto p-2 flex items-center justify-center gap-20 text-center">
-      <li>
-        <UserGroupIcon className="h-16 w-20 text-secondary" />
-        <p>8,714+</p>
-        <p>Happy Customers</p>
+    <ul className="container mx-auto px-2 py-16 flex flex-wrap items-center justify-around gap-8 text-center">
+      <li className="flex flex-col items-center border-r-secondary">
+        <UserGroupIcon className="h-16 w-16 text-secondary" />
+        <p className="text-3xl font-bold text-primary my-1">8,714+</p>
+        <p className="uppercase">Happy Customers</p>
       </li>
-      <li>
-        <BuildingOffice2Icon className="h-20 w-20" />
-        <p>8,714+</p>
-        <p>Home Sold</p>
+      <li className="flex flex-col items-center">
+        <BuildingOffice2Icon className="h-16 w-16 text-secondary" />
+        <p className="text-3xl font-bold text-primary my-1">8,714+</p>
+        <p className="uppercase">Bought Houses</p>
       </li>
-      <li>
-        <HomeModernIcon className="h-20 w-20" />
-        <p>8,714+</p>
-        <p>Home available</p>
+      <li className="flex flex-col items-center">
+        <HomeModernIcon className="h-16 w-16 m-0 text-secondary" />
+        <p className="text-3xl font-bold text-primary my-1">8,714+</p>
+        <p className="uppercase">Available Houses</p>
       </li>
     </ul>
   );

@@ -32,13 +32,13 @@ function Header() {
           </li>
         ))}
         <li className="mt-8 md:hidden">
-          <button className="w-full flex items-center text-base border border-primary text-primary p-4 rounded-lg justify-center gap-2">
+          <button className="w-full flex items-center text-base border border-primary text-primary p-3 rounded-lg justify-center gap-2">
             <Image src={googleLogo} alt="google" width="20" height="20" />
             Login with google
           </button>
         </li>
       </ul>
-      <button className="hidden  md:flex items-center border border-primary text-primary p-4 rounded-lg justify-center gap-2">
+      <button className="hidden  md:flex items-center border border-primary text-primary p-3 text-sm rounded-lg justify-center gap-2">
         <Image src={googleLogo} alt="google" width="20" height="20" />
         Login with google
       </button>

@@ -12,7 +12,7 @@ function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="container mx-auto px-2 h-[calc(100vh-5rem)] flex flex-col lg:flex-row lg:items-center">
+    <div className="container mx-auto px-2 min-h-[calc(100vh-5rem)] flex flex-col lg:flex-row lg:items-center">
       <div className="max-w-lg">
         <h1 className="mt-14 text-primary text-4xl font-extrabold lg:text-5xl">
           Discover a place you’ll love to live
