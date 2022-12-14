@@ -1,10 +1,9 @@
 import Image from 'next/image'
-import React from 'react'
-import Aboutus1 from '../../../images/Aboutus1.png'
-import Aboutus2 from '../../../images/Aboutus2.png'
-import { Title } from './Title'
+import Aboutus1 from '../images/Aboutus1.png'
+import Aboutus2 from '../images/Aboutus2.png'
+import { Title } from '../components/Title'
 
-export const AboutUS = () => {
+function AboutUS() {
   return (
     <div className='container md:flex justify-center gap-4 my-10 mx-auto'>
         <div className='flex flex-col justify-between flex-1 mx-4 md:mx-auto'>
@@ -24,3 +23,6 @@ Uncommonly spacious and handsomely appointed.</p>
     </div>
   )
 }
+
+
+export default AboutUS;

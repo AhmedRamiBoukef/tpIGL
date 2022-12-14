@@ -1,9 +1,8 @@
 import Image from 'next/image'
-import React from 'react'
-import { Title } from './Title'
-import Latest1 from "../../../images/Latest1.png"
+import { Title } from '../components/Title'
+import Latest1 from "../images/Latest1.png"
 
-export const Latest = () => {
+function Latest() {
     const latestItems = [
         {
             imageURL: Latest1,
@@ -61,3 +60,5 @@ export const Latest = () => {
     </div>
   )
 }
+
+export default Latest;

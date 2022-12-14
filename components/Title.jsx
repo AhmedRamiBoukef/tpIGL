@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import Arrow from '../../../images/Arrow.svg'
+import Arrow from '../images/Arrow.svg'
 
 export const Title = ({section,title}) => {
   return (

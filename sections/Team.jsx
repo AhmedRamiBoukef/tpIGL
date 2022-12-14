@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import React, { useState } from 'react'
-import { Title } from './Title'
-import Team1 from '../../../images/Team1.png'
+import { useState } from 'react'
+import { Title } from '../components/Title'
+import Team1 from '../images/Team1.png'
 
-export const Team = () => {
+function Team() {
     const [team,setTeam] = useState([
         {
             name: 'Boukef AhmedRami',
@@ -82,3 +82,5 @@ export const Team = () => {
     </div>
   )
 }
+
+export default Team;
