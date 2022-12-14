@@ -1,3 +1,7 @@
 import Header from "./Header";
+import Hero from "./Hero";
+import Stats from "./Stats";
+import Contact from "./Contact";
+import Footer from "./Footer";
 
-export { Header };
+export { Header, Hero, Stats, Contact, Footer };
