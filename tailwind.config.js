@@ -12,6 +12,11 @@ module.exports = {
         primary: "#000F2D",
         secondary: "#004AE2",
       },
+      backgroundImage: {
+        hero1: "url('../public/hero1.jpg')",
+        hero2: "url('../public/hero2.jpg')",
+        hero3: "url('../public/hero3.jpg')",
+      },
     },
   },
   plugins: [],
