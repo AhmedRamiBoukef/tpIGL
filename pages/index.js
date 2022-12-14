@@ -15,8 +15,6 @@ export default function Home() {
       <AboutUS />
       <Latest/>
       <Team/>
-      <Contact />
-      <Footer />
     </div>
   );
 }
