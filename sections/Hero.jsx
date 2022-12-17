@@ -8,13 +8,12 @@ const info = [
 ];
 
 function Hero() {
-
   const [activeIndex, setActiveIndex] = useState(0);
-
+  
   return (
-    <div className="container mx-auto px-2 min-h-[calc(100vh-5rem)] flex flex-col lg:flex-row lg:items-center">
-      <div className="max-w-lg">
-        <h1 className="mt-14 text-primary text-4xl font-extrabold lg:text-5xl">
+    <div className="container mx-auto px-2 min-h-[calc(100vh-5rem)] flex flex-col justify-center lg:flex-row lg:items-center">
+      <div className="max-w-xl">
+        <h1 className="mt-14 text-primary text-5xl font-extrabold">
           Discover a place you’ll love to live
         </h1>
         <p className="my-5 text-gray-600">
@@ -24,14 +23,14 @@ function Hero() {
           projects lined up charge extra the next time,
         </p>
       </div>
-      <div className="flex gap-2 lg:flex-1">
+      <div className="flex gap-2  lg:flex-1">
         {info.map(({ title, location }, index) => (
           <div
             onClick={() => setActiveIndex(index)}
             key={title}
             className={`relative cursor-pointer bg-hero${
               index + 1
-            } h-56 lg:h-80 bg-center bg-cover rounded-lg overflow-hidden p-2 flex items-end text-white flex-1 transition-all  ${
+            } h-80 bg-center bg-cover rounded-lg overflow-hidden p-2 flex items-end text-white flex-1 transition-all  ${
               activeIndex === index && "flex-grow-[4]"
             }`}
           >

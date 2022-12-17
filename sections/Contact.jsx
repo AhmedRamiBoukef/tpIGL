@@ -10,7 +10,7 @@ function Contact() {
     message: "",
   });
   return (
-    <div className="container mx-auto px-2 py-16 flex flex-col text-center">
+    <div className="container mx-auto px-2 pt-16 pb-24 flex flex-col text-center">
       <div>
         <h3 className="text-secondary uppercase text-lg">Contact Us</h3>
         <h2 className="text-primary font-bold text-4xl pt-2 pb-12">

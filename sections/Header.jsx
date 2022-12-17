@@ -1,10 +1,33 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
-import googleLogo from "../public/google.png";
+import { GoogleLogin } from "@react-oauth/google";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
 
 const sections = ["home", "about", "team", "contact"];
+
+function handleGoogleLoginSuccess(response) {
+  const { family_name, given_name, email, picture } = jwtDecode(
+    response.credential
+  );
+  axios.post(
+    "API_URL",
+    {
+      family_name,
+      given_name,
+      email,
+      picture,
+    },
+    {
+      headers: {
+        Authorization: response.credential,
+        "Content-Type": "application/json",
+      },
+    }
+  )
+}
+function handleGoogleLoginError() {}
 
 function Header() {
   const [menuActive, setMenuActive] = useState(false);
@@ -31,16 +54,18 @@ function Header() {
             <Link href={`#${section}`}>{section}</Link>
           </li>
         ))}
-        <li className="mt-8 md:hidden">
-          <button className="w-full flex items-center text-base border border-primary text-primary p-3 rounded-lg justify-center gap-2">
-            <Image src={googleLogo} alt="google" width="20" height="20" />
-            Login with google
-          </button>
+        <li className="mt-8 md:hidden flex justify-center">
+          <GoogleLogin
+            onSuccess={handleGoogleLoginSuccess}
+            onError={handleGoogleLoginError}
+          />
         </li>
       </ul>
-      <button className="hidden  md:flex items-center border border-primary text-primary p-3 text-sm rounded-lg justify-center gap-2">
-        <Image src={googleLogo} alt="google" width="20" height="20" />
-        Login with google
+      <button className="hidden md:block">
+        <GoogleLogin
+          onSuccess={handleGoogleLoginSuccess}
+          onError={handleGoogleLoginError}
+        />
       </button>
       <button
         className="flex flex-col items-end gap-2 w-8 ml-auto md:hidden"

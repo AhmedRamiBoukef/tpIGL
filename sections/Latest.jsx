@@ -6,37 +6,37 @@ function Latest() {
     const latestItems = [
         {
             imageURL: Latest1,
-            title: 'The Grand Estate',
+            title: 'The Grand Estate1',
             adress: 'Mosco, 121B',
             price: '20.000.000'
         },
         {
             imageURL: Latest1,
-            title: 'The Grand Estate',
+            title: 'The Grand Estate2',
             adress: 'Mosco, 121B',
             price: '20.000.000'
         },
         {
             imageURL: Latest1,
-            title: 'The Grand Estate',
+            title: 'The Grand Estate3',
             adress: 'Mosco, 121B',
             price: '20.000.000'
         },
         {
             imageURL: Latest1,
-            title: 'The Grand Estate',
+            title: 'The Grand Estate4',
             adress: 'Mosco, 121B',
             price: '20.000.000'
         },
         {
             imageURL: Latest1,
-            title: 'The Grand Estate',
+            title: 'The Grand Estate5',
             adress: 'Mosco, 121B',
             price: '20.000.000'
         },
         {
             imageURL: Latest1,
-            title: 'The Grand Estate',
+            title: 'The Grand Estate6',
             adress: 'Mosco, 121B',
             price: '20.000.000'
         },
