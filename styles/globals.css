@@ -15,4 +15,11 @@
     height: 100%;
     background: linear-gradient(to top, rgb(29, 29, 29), transparent 40%);
   }
+  .carousel {
+    display: inline-flex;
+    overflow-x: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
 }
