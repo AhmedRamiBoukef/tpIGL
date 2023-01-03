@@ -7,7 +7,7 @@ import {
 
 function Stats() {
   return (
-    <ul className="container mx-auto px-2 py-16 flex flex-wrap items-center justify-around gap-8 text-center">
+    <ul className="container py-16 flex flex-wrap items-center justify-around gap-8 text-center">
       <li className="flex flex-col items-center border-r-secondary">
         <UserGroupIcon className="h-16 w-16 text-secondary" />
         <p className="text-3xl font-bold text-primary my-1">8,714+</p>

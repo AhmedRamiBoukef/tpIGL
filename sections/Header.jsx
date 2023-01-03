@@ -45,7 +45,7 @@ function Header() {
     //   });
   }, []);
   return (
-    <div className="container mx-auto p-2 flex items-center md:justify-between min-h-[5rem]">
+    <div className="container flex items-center md:justify-between min-h-[5rem]">
       <Link href="/" className="text-secondary font-semibold text-xl ">
         Estato
       </Link>

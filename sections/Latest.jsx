@@ -42,7 +42,7 @@ function Latest() {
         },
     ]
   return (
-    <div className='container my-10 mx-auto'>
+    <div className='container my-10'>
         <Title section='Latest Projects' title='Make your dream project with Estato' />
         <div className='sm:grid mx-4 sm:mx-0 grid-cols-3 gap-10 my-8'>
             {latestItems.map(item => (
