@@ -1,36 +1,49 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { GoogleLogin } from "@react-oauth/google";
-import jwtDecode from "jwt-decode";
+import { AuthContext } from "../context/authContext";
+import { useRouter } from "next/router";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const sections = ["home", "about", "team", "contact"];
 
-function handleGoogleLoginSuccess(response) {
-  const { family_name, given_name, email, picture } = jwtDecode(
-    response.credential
-  );
-  axios.post(
-    "API_URL",
-    {
-      family_name,
-      given_name,
-      email,
-      picture,
-    },
-    {
-      headers: {
-        Authorization: response.credential,
-        "Content-Type": "application/json",
-      },
-    }
-  )
-}
 function handleGoogleLoginError() {}
 
 function Header() {
   const [menuActive, setMenuActive] = useState(false);
+  const { setAuthState } = useContext(AuthContext);
+  const router = useRouter();
+  const handleGoogleLoginSuccess = useCallback((response) => {
+    fetch("http://127.0.0.1:8000/auth/", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${response.credential}`,
+      },
+    })
+      .then((res) => res.json())
+      .then(({ token }) => {
+        setAuthState({ token });
+        router.push("/app");
+      })
+      .catch((err) => toast.error(err.message));
+    //  axios
+    //    .post("http://127.0.0.1:8000/auth/", {
+    //     headers: {
+    //        "Content-type": "application/json; charset=UTF-8",
+    //       Authorization: "Bearer "+ response.credential,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     // setAuthState({ token: response.credential });
+    //     // router.push("/app");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.message);
+    //   });
+  }, []);
   return (
     <div className="container mx-auto p-2 flex items-center md:justify-between min-h-[5rem]">
       <Link href="/" className="text-secondary font-semibold text-xl ">
