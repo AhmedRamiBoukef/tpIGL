@@ -2,14 +2,18 @@ import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider, ProtectRoutes } from "../context/authContext";
 import { ToastContainer } from "react-toastify";
+import { QueryClient, QueryClientProvider } from "react-query";
 
+const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <ProtectRoutes>
-        <Component {...pageProps} />
-      </ProtectRoutes>
-      <ToastContainer />
+      <QueryClientProvider client={queryClient}>
+        <ProtectRoutes>
+          <Component {...pageProps} />
+        </ProtectRoutes>
+        <ToastContainer />
+      </QueryClientProvider>
     </AuthProvider>
   );
 }

@@ -1,10 +1,5 @@
 import { useRouter } from "next/router";
-import {
-  useEffect,
-  useState,
-  useContext,
-  createContext,
-} from "react";
+import { useEffect, useState, useContext, createContext } from "react";
 
 const AuthContext = createContext();
 const { Provider } = AuthContext;
@@ -15,17 +10,18 @@ const AuthProvider = ({ children }) => {
   });
 
   const setUserAuthInfo = ({ token }) => {
-    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify({ token }));
     setAuthState({
       token,
     });
   };
 
   // checks if the user is authenticated or not
-  const isUserAuthenticated = () => Boolean(localStorage.getItem("token"));
+  const isUserAuthenticated = () =>
+    Boolean(JSON.parse(localStorage.getItem("user"))?.token);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = JSON.parse(localStorage.getItem("user"))?.token;
     if (token) {
       setAuthState({ token });
     }

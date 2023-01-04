@@ -1,9 +1,11 @@
-import Link from "next/link";
+import Nav from "../../components/Nav";
+import Search from "../../components/Search";
 
 function index() {
   return (
-    <div>
-      hello
+    <div className="min-h-screen bg-slate-50">
+      <Nav />
+      <Search />
     </div>
   );
 }

@@ -27,7 +27,10 @@ function Header() {
         setAuthState({ token });
         router.push("/app");
       })
-      .catch((err) => toast.error(err.message));
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
     //  axios
     //    .post("http://127.0.0.1:8000/auth/", {
     //     headers: {

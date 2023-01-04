@@ -1,4 +1,3 @@
-import React from "react";
 function Input({ name, type, label, setFormData = () => {}, required }) {
   return (
     <div className="relative mb-4">
