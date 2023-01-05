@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import {
   ArrowsPointingOutIcon,
@@ -6,8 +6,48 @@ import {
   HomeModernIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
-function HouseCard({ house }) {
+import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { AuthContext } from "../context/authContext";
 
+function HouseCard({ house }) {
+  const queryClient = useQueryClient();
+  const { token } = useContext(AuthContext)?.authState;
+  const isLiked = () => data.some((rea) => rea.id === house.id);
+  const { data } = useQuery("favs", async () => {
+    const data = await fetch("http://127.0.0.1:8000/favs_of_user/", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data.json();
+  });
+  const mutation = useMutation(
+    (method) => {
+      fetch("http://127.0.0.1:8000/favs_of_user/", {
+        method: method,
+        body: JSON.stringify({
+          rea_id: house.id,
+        }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+    },
+    {
+      onSuccess: async () => {
+        await queryClient.cancelQueries("favs");
+        queryClient.setQueryData("favs", (old) => {
+          if (isLiked()) {
+            return old.filter((rea) => rea.id !== house.id);
+          }
+          return [...old, house];
+        });
+      },
+    }
+  );
   return (
     <li className="bg-white rounded-lg max-w-[350px] flex flex-col">
       <Image
@@ -19,9 +59,22 @@ function HouseCard({ house }) {
       />
       <div className="p-4 flex flex-col flex-1">
         <div className="flex items-center justify-between">
-          <p className="text-2xl text-secondary font-medium">{house.price} DA</p>
-          <button className="rounded-full flex items-center justify-center border-2 border-slate-200 text-secondary w-10 h-10">
-            <HeartIcon className="w-5 h-5" />
+          <p className="text-2xl text-secondary font-medium">
+            {house.price} DA
+          </p>
+          <button
+            className={`rounded-full flex items-center justify-center border border-slate-200 text-secondary w-10 h-10 ${
+              data && isLiked() && "border-secondary"
+            }`}
+            onClick={() => {
+              isLiked() ? mutation.mutate("DELETE") : mutation.mutate("POST");
+            }}
+          >
+            {data && isLiked() ? (
+              <SolidHeartIcon className="w-5 h-5" />
+            ) : (
+              <HeartIcon className="w-5 h-5" />
+            )}
           </button>
         </div>
         <p className="font-semibold text-2xl capitalize">{house.title}</p>

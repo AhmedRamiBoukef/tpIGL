@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode";
 import { useRouter } from "next/router";
 import { useEffect, useState, useContext, createContext } from "react";
 
@@ -10,9 +11,11 @@ const AuthProvider = ({ children }) => {
   });
 
   const setUserAuthInfo = ({ token }) => {
-    localStorage.setItem("user", JSON.stringify({ token }));
+    const user = token ? jwtDecode(token) : null;
+    localStorage.setItem("user", JSON.stringify({ token, user }));
     setAuthState({
       token,
+      user,
     });
   };
 
