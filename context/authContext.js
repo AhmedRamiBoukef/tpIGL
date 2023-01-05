@@ -8,12 +8,24 @@ const { Provider } = AuthContext;
 const AuthProvider = ({ children }) => {
   const [authState, setAuthState] = useState({
     token: "",
+    user: {},
   });
 
-  const setUserAuthInfo = ({ token }) => {
-    const user = token ? jwtDecode(token) : null;
-    localStorage.setItem("user", JSON.stringify({ token, user }));
-    setAuthState({
+  const setUserAuthInfo = async ({ token }) => {
+    let user;
+    if (token) {
+      user = await fetch("http://127.0.0.1:8000/user_detail/", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      user = await user.json();
+    } else {
+      user = null;
+    }
+    await localStorage.setItem("user", JSON.stringify({ token, user }));
+    await setAuthState({
       token,
       user,
     });
@@ -24,9 +36,9 @@ const AuthProvider = ({ children }) => {
     Boolean(JSON.parse(localStorage.getItem("user"))?.token);
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("user"))?.token;
-    if (token) {
-      setAuthState({ token });
+    const { token, user } = JSON.parse(localStorage.getItem("user"));
+    if (token && user) {
+      setAuthState({ token, user });
     }
   }, []);
 

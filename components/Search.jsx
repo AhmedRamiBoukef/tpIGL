@@ -29,7 +29,7 @@ function Search() {
       <h2 className="mt-10 font-semibold text-primary text-4xl">
         Search for properties to buy
       </h2>
-      <form className="">
+      <form className="" onSubmit={(e) => e.preventDefault()}>
         <div className="bg-white flex items-center mt-8 px-2 py-4 rounded-md">
           <input
             className="flex-1 focus:outline-none"

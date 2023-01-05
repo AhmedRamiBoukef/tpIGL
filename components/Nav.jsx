@@ -1,6 +1,7 @@
 import {
   XMarkIcon,
   ArrowLeftOnRectangleIcon,
+  HomeIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -18,7 +19,7 @@ function Nav() {
   return (
     <div className="bg-white">
       <div className="container flex items-center md:justify-between min-h-[5rem]">
-        <Link href="/" className="text-secondary font-semibold text-xl ">
+        <Link href="/app" className="text-secondary font-semibold text-xl ">
           Estato
         </Link>
         <ul

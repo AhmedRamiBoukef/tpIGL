@@ -31,21 +31,6 @@ function Header() {
         console.log(err);
         toast.error(err.message);
       });
-    //  axios
-    //    .post("http://127.0.0.1:8000/auth/", {
-    //     headers: {
-    //        "Content-type": "application/json; charset=UTF-8",
-    //       Authorization: "Bearer "+ response.credential,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     // setAuthState({ token: response.credential });
-    //     // router.push("/app");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //   });
   }, []);
   return (
     <div className="container flex items-center md:justify-between min-h-[5rem]">

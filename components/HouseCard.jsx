@@ -12,7 +12,7 @@ import { AuthContext } from "../context/authContext";
 
 function HouseCard({ house }) {
   const queryClient = useQueryClient();
-  const { token } = useContext(AuthContext)?.authState;
+  const { token, user } = useContext(AuthContext)?.authState;
   const isLiked = () => data.some((rea) => rea.id === house.id);
   const { data } = useQuery("favs", async () => {
     const data = await fetch("http://127.0.0.1:8000/favs_of_user/", {
@@ -62,20 +62,22 @@ function HouseCard({ house }) {
           <p className="text-2xl text-secondary font-medium">
             {house.price} DA
           </p>
-          <button
-            className={`rounded-full flex items-center justify-center border border-slate-200 text-secondary w-10 h-10 ${
-              data && isLiked() && "border-secondary"
-            }`}
-            onClick={() => {
-              isLiked() ? mutation.mutate("DELETE") : mutation.mutate("POST");
-            }}
-          >
-            {data && isLiked() ? (
-              <SolidHeartIcon className="w-5 h-5" />
-            ) : (
-              <HeartIcon className="w-5 h-5" />
-            )}
-          </button>
+          {user?.id !== house.owner ? (
+            <button
+              className={`rounded-full flex items-center justify-center border border-slate-200 text-secondary w-10 h-10 ${
+                data && isLiked() && "border-secondary"
+              }`}
+              onClick={() => {
+                isLiked() ? mutation.mutate("DELETE") : mutation.mutate("POST");
+              }}
+            >
+              {data && isLiked() ? (
+                <SolidHeartIcon className="w-5 h-5" />
+              ) : (
+                <HeartIcon className="w-5 h-5" />
+              )}
+            </button>
+          ) : null}
         </div>
         <p className="font-semibold text-2xl capitalize">{house.title}</p>
         <p className="my-2 text-slate-500">{house.description}</p>
