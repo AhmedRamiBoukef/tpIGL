@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useContext, useState } from "react";
 import { AuthContext } from "../context/authContext";
-const sections = ["Buy", "Sell", "favourites"];
+const sections = ["Sell", "favourites"];
 function Nav() {
   const [menuActive, setMenuActive] = useState(false);
   const { setAuthState } = useContext(AuthContext);

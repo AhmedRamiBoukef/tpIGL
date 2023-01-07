@@ -4,8 +4,8 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { GoogleLogin } from "@react-oauth/google";
 import { AuthContext } from "../context/authContext";
 import { useRouter } from "next/router";
-import axios from "axios";
 import { toast } from "react-toastify";
+
 
 const sections = ["home", "about", "team", "contact"];
 
@@ -31,6 +31,7 @@ function Header() {
         console.log(err);
         toast.error(err.message);
       });
+
   }, []);
   return (
     <div className="container flex items-center md:justify-between min-h-[5rem]">
