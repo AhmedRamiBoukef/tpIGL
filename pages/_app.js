@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }) {
       </ProtectRoutes>
       <ToastContainer />
     </AuthProvider>
+    // <Component {...pageProps} />
   );
 }
 

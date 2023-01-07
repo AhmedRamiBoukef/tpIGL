@@ -58,14 +58,14 @@ export const Carousel = ({setShowModal,images}) => {
           {sliderControl(true)}
           {images.map((img, i) => (
             <div className="w-full flex-shrink-0" key={img} ref={refs[i]}>
-              <Image src={img} alt={img} height="100%" width="100%" layout="responsive" objectFit="contain" />
+              <Image src={`http://127.0.0.1:8000/${img.photo}`} alt={img.photo} height="100%" width="100%" layout="responsive" objectFit="contain" />
 
             </div>
           ))}
           {sliderControl()}
         </div>
         <div className="w-full absolute flex justify-center bottom-3">
-            <button onClick={() => setShowModal(false)} className=" bg-white text-xl font-semibold px-6 py-3 rounded-xl flex gap-3 items-center border-secondary border"><svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>Exit</button>
+            <button onClick={() => setShowModal(false)} className=" bg-white text-xl font-semibold px-6 py-3 rounded-xl flex gap-3 items-center"><svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>Exit</button>
         </div>
 
       </div>
