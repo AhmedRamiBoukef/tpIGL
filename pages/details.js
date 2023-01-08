@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Carousel } from "../components/Carousel";
 import { toast } from "react-toastify";
+import Pagefooter from "../sections/Pagefooter";
 
 export default function Details() {
   const [detail, setDetail] = useState(null);
@@ -42,7 +43,8 @@ export default function Details() {
   if (isLoading) return (<p className="w-[100vw] h-[100vh] flex justify-center items-center"> Loading...</p>);
   if (!detail)return (<p className="w-[100vw] h-[100vh] flex justify-center items-center">Loading...</p>);
   return (
-    <div className="container mx-auto p-2 ">
+    <div>
+        <div className="container mb-14 mx-auto p-2 ">
       <div className="flex text-2xl text-secondary gap-3 cursor-pointer font-semibold">
         <svg
           className="w-6 h-6"
@@ -297,6 +299,7 @@ export default function Details() {
           </div>
         </div>
       </div>
+      
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -307,6 +310,8 @@ export default function Details() {
           <div className="opacity-75 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
+    </div>
+    <Pagefooter/>
     </div>
   );
 }
