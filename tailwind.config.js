@@ -7,6 +7,16 @@ module.exports = {
   ],
   safelist: ["bg-hero1", "bg-hero2", "bg-hero3"],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "1rem",
+        sm: "2rem",
+        lg: "4rem",
+        xl: "5rem",
+        "2xl": "6rem",
+      },
+    },
     extend: {
       colors: {
         primary: "#000F2D",

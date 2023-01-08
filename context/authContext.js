@@ -1,10 +1,6 @@
+import jwtDecode from "jwt-decode";
 import { useRouter } from "next/router";
-import {
-  useEffect,
-  useState,
-  useContext,
-  createContext,
-} from "react";
+import { useEffect, useState, useContext, createContext } from "react";
 
 const AuthContext = createContext();
 const { Provider } = AuthContext;
@@ -12,22 +8,37 @@ const { Provider } = AuthContext;
 const AuthProvider = ({ children }) => {
   const [authState, setAuthState] = useState({
     token: "",
+    user: {},
   });
 
-  const setUserAuthInfo = ({ token }) => {
-    localStorage.setItem("token", token);
-    setAuthState({
+  const setUserAuthInfo = async ({ token }) => {
+    let user;
+    if (token) {
+      user = await fetch("http://127.0.0.1:8000/user_detail/", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      user = await user.json();
+    } else {
+      user = null;
+    }
+    await localStorage.setItem("user", JSON.stringify({ token, user }));
+    await setAuthState({
       token,
+      user,
     });
   };
 
   // checks if the user is authenticated or not
-  const isUserAuthenticated = () => Boolean(localStorage.getItem("token"));
+  const isUserAuthenticated = () =>
+    Boolean(JSON.parse(localStorage.getItem("user"))?.token);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setAuthState({ token });
+    const { token, user } = JSON.parse(localStorage.getItem("user"));
+    if (token && user) {
+      setAuthState({ token, user });
     }
   }, []);
 

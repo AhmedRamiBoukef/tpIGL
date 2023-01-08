@@ -4,8 +4,8 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { GoogleLogin } from "@react-oauth/google";
 import { AuthContext } from "../context/authContext";
 import { useRouter } from "next/router";
-import axios from "axios";
 import { toast } from "react-toastify";
+
 
 const sections = ["home", "about", "team", "contact"];
 
@@ -27,25 +27,14 @@ function Header() {
         setAuthState({ token });
         router.push("/app");
       })
-      .catch((err) => toast.error(err.message));
-    //  axios
-    //    .post("http://127.0.0.1:8000/auth/", {
-    //     headers: {
-    //        "Content-type": "application/json; charset=UTF-8",
-    //       Authorization: "Bearer "+ response.credential,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     // setAuthState({ token: response.credential });
-    //     // router.push("/app");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //   });
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
+
   }, []);
   return (
-    <div className="container mx-auto p-2 flex items-center md:justify-between min-h-[5rem]">
+    <div className="container flex items-center md:justify-between min-h-[5rem]">
       <Link href="/" className="text-secondary font-semibold text-xl ">
         Estato
       </Link>
