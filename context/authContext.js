@@ -36,7 +36,9 @@ const AuthProvider = ({ children }) => {
     Boolean(JSON.parse(localStorage.getItem("user"))?.token);
 
   useEffect(() => {
-    const { token, user } = JSON.parse(localStorage.getItem("user"));
+    const userObj = JSON.parse(localStorage.getItem("user"));
+    const user = userObj?.user;
+    const token = userObj?.token;
     if (token && user) {
       setAuthState({ token, user });
     }
