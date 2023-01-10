@@ -38,7 +38,7 @@ function Team() {
         setTeam(table);
     }
   return (
-    <div className='container my-10 mx-auto p-2'>
+    <div id="team" className='container my-10 mx-auto p-2'>
         <Title section='Our Team' title='Our Fantastic Team'/>
         <div className='md:flex justify-center md:justify-start gap-4 my-10'>
             <div className='h-full mb-6 md:mb-0 md:w-2/5 rounded-2xl relative'>
