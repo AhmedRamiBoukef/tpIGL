@@ -13,7 +13,7 @@ function favourites() {
         Authorization: `Bearer ${token}`,
       },
     });
-    return data.json();
+    return await data.json();
   });
   return (
     <div>
