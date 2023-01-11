@@ -5,7 +5,7 @@ import { Title } from '../components/Title'
 
 function AboutUS() {
   return (
-    <div className='container md:flex justify-center gap-4 my-10'>
+    <div id='about' className='container md:flex justify-center gap-4 my-10'>
         <div className='flex flex-col justify-between flex-1 mx-4 md:mx-auto'>
           <Title section="About US" title="Value we give to you" />
           <div><Image src={Aboutus1} alt='Aboutus1' width="100%" layout="responsive" objectFit="contain" /></div> 

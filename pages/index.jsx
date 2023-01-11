@@ -1,7 +1,6 @@
 import Head from "next/head";
 import {
   Contact,
-  Footer,
   Header,
   Hero,
   Stats,
@@ -10,6 +9,7 @@ import {
   Team,
 } from "../sections";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import Pagefooter from "../sections/Pagefooter";
 
 export default function Home() {
   return (
@@ -27,7 +27,7 @@ export default function Home() {
         <Latest />
         <Team />
         <Contact />
-        <Footer />
+        <Pagefooter />
       </div>
     </GoogleOAuthProvider>
   );

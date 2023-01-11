@@ -14,6 +14,7 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </ProtectRoutes>
         <ToastContainer />
+        <ReactQueryDevtools/>
       </QueryClientProvider>
     </AuthProvider>
   );

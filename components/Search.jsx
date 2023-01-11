@@ -3,6 +3,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { AuthContext } from "../context/authContext";
 import { useQuery } from "react-query";
 import HouseCard from "./HouseCard";
+import Link from "next/link";
 function Search() {
   const [formData, setFormData] = useState({
     search_field: "",
@@ -108,7 +109,7 @@ function Search() {
       </form>
       <ul className="py-10 flex flex-wrap justify-center lg:justify-between gap-5">
         {data
-          ? data.map((house) => <HouseCard key={house.id} house={house} />)
+          ? data.map((house) => <Link href={`/details/${house.id}`}><HouseCard key={house.id} house={house} /></Link>)
           : null}
       </ul>
     </div>

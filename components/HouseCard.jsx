@@ -67,7 +67,9 @@ function HouseCard({ house }) {
               className={`rounded-full flex items-center justify-center border border-slate-200 text-secondary w-10 h-10 ${
                 data && isLiked() && "border-secondary"
               }`}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 isLiked() ? mutation.mutate("DELETE") : mutation.mutate("POST");
               }}
             >

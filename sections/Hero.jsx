@@ -11,7 +11,7 @@ function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   
   return (
-    <div className="container min-h-[calc(100vh-5rem)] flex flex-col justify-center lg:flex-row lg:items-center">
+    <div id="#home" className="container min-h-[calc(100vh-5rem)] flex flex-col justify-center lg:flex-row lg:items-center">
       <div className="max-w-xl">
         <h1 className="mt-14 text-primary text-5xl font-extrabold">
           Discover a place you’ll love to live
