@@ -5,83 +5,71 @@ import { toast } from "react-toastify";
 export default function AddListing() {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    type: "rent",
-    name: "",
-    bedrooms: 1,
-    bathrooms: 1,
-    parking: false,
-    furnished: false,
-    address: "",
-    description: "",
-    offer: false,
-    regularPrice: 0,
-    discountedPrice: 0,
-    images: {},
+    title:"",
+    description:"",
+    category:"sale",
+    type:"",
+    surface:0,
+    price:0,
+    address:"",
+    wilaya:"",
+    commune:"",
+    uploaded_photos:{},
   });
   const {
-    type,
-    name,
-    bedrooms,
-    bathrooms,
-    parking,
-    address,
-    furnished,
+    title,
     description,
-    offer,
-    regularPrice,
-    discountedPrice,
-    images,
+    category,
+    type,
+    surface,
+    price,
+    address,
+    wilaya,
+    commune,
+    uploaded_photos,
   } = formData;
 
+
+  function dateToYMD(date) {
+    var d = date.getDate();
+    var m = date.getMonth() + 1; //Month from 0 to 11
+    var y = date.getFullYear();
+    return '' + y + '/' + (m<=9 ? '0' + m : m) + '/' + (d <= 9 ? '0' + d : d);
+}
+
+
   function onChange(e) {
-    let boolean = null;
-    if (e.target.value === "true") {
-      boolean = true;
-    }
-    if (e.target.value === "false") {
-      boolean = false;
-    }
     // Files
     if (e.target.files) {
       setFormData((prevState) => ({
         ...prevState,
-        images: e.target.files,
+        uploaded_photos: e.target.files,
       }));
     }
-    // Text/Boolean/Number
+    // Text/Number
     if (!e.target.files) {
       setFormData((prevState) => ({
         ...prevState,
-        [e.target.id]: boolean ?? e.target.value,
+        [e.target.id]: e.target.value,
       }));
     }
   }
   async function onSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    if (+discountedPrice >= +regularPrice) {
+    if (images.length > 6 || images.length < 3) {
       setLoading(false);
-      toast.error("Discounted price should be less than regular price");
-      return;
-    }
-    if (images.length > 6) {
-      setLoading(false);
-      toast.error("maximum 6 images are allowed");
+      toast.error("min 3 & max 6 images are allowed");
       return;
     }
 
     const formDataCopy = {
       ...formData,
-      imgUrls,
-      timestamp: serverTimestamp(),
-      userRef: auth.currentUser.uid,
+      pub_date: dateToYMD(new Date()),
     };
-    delete formDataCopy.images;
-    !formDataCopy.offer && delete formDataCopy.discountedPrice;
-    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
     setLoading(false);
     toast.success("Listing created");
-    navigate(`/category/${formDataCopy.type}/${docRef.id}`);
+    // navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   }
 
   if (loading) {
@@ -95,8 +83,8 @@ export default function AddListing() {
         <p className="text-lg mt-6 font-semibold">Title</p>
         <input
           type="text"
-          id="name"
-          value={name}
+          id="title"
+          value={title}
           onChange={onChange}
           placeholder="Title"
           maxLength="32"
@@ -107,8 +95,8 @@ export default function AddListing() {
         <p className="text-lg mt-6 font-semibold">Description</p>
         <textarea
           type="text"
-          id="address"
-          value={address}
+          id="description"
+          value={description}
           onChange={onChange}
           placeholder="Description"
           required
@@ -118,11 +106,11 @@ export default function AddListing() {
         <div className="flex">
           <button
             type="button"
-            id="type"
+            id="category"
             value="sale"
             onClick={onChange}
             className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              type === "rent"
+              type === "sale"
                 ? "bg-white text-black"
                 : "bg-blue-600 text-white"
             }`}
@@ -131,11 +119,11 @@ export default function AddListing() {
           </button>
           <button
             type="button"
-            id="type"
+            id="category"
             value="exchange"
             onClick={onChange}
             className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              type === "rent"
+              type === "exchange"
                 ? "bg-white text-black"
                 : "bg-blue-600 text-white"
             }`}
@@ -144,11 +132,11 @@ export default function AddListing() {
           </button>
           <button
             type="button"
-            id="type"
+            id="category"
             value="rental"
             onClick={onChange}
             className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              type === "rent"
+              type === "rental"
                 ? "bg-white text-black"
                 : "bg-blue-600 text-white"
             }`}
@@ -157,11 +145,11 @@ export default function AddListing() {
           </button>
           <button
             type="button"
-            id="type"
+            id="category"
             value="Rental for holidays"
             onClick={onChange}
             className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              type === "sale"
+              type === "Rental for holidays"
                 ? "bg-white text-black"
                 : "bg-blue-600 text-white"
             }`}
@@ -173,8 +161,8 @@ export default function AddListing() {
         <p className="text-lg mt-6 font-semibold">Type</p>
         <input
           type="text"
-          id="name"
-          value={name}
+          id="type"
+          value={type}
           onChange={onChange}
           placeholder="Type"
           maxLength="32"
@@ -188,7 +176,7 @@ export default function AddListing() {
             <input
               type="number"
               id="surface"
-              value={regularPrice}
+              value={surface}
               onChange={onChange}
               min="50"
               max="400000000"
@@ -202,23 +190,22 @@ export default function AddListing() {
         
         <div className="flex items-center mb-6">
           <div className="">
-            <p className="text-lg font-semibold">Regular price</p>
+            <p className="text-lg font-semibold">Price</p>
             <div className="flex w-full justify-center items-center space-x-6">
               <input
                 type="number"
-                id="regularPrice"
-                value={regularPrice}
+                id="price"
+                value={price}
                 onChange={onChange}
                 min="50"
                 max="400000000"
                 required
                 className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
               />
-              {type === "rent" && (
-                <div className="">
+              <div className="">
                   <p className="text-md w-full whitespace-nowrap">DA</p>
-                </div>
-              )}
+              </div>
+              
             </div>
           </div>
         </div>
@@ -240,8 +227,8 @@ export default function AddListing() {
         <p className="text-lg mt-6 font-semibold">Wilaya</p>
         <input
           type="text"
-          id="name"
-          value={name}
+          id="wilaya"
+          value={wilaya}
           onChange={onChange}
           placeholder="Wilaya"
           maxLength="32"
@@ -253,8 +240,8 @@ export default function AddListing() {
       <p className="text-lg mt-6 font-semibold">Commune</p>
         <input
           type="text"
-          id="name"
-          value={name}
+          id="commune"
+          value={commune}
           onChange={onChange}
           placeholder="Commune"
           maxLength="32"
@@ -271,7 +258,7 @@ export default function AddListing() {
           </p>
           <input
             type="file"
-            id="images"
+            id="uploaded_photos"
             onChange={onChange}
             accept=".jpg,.png,.jpeg"
             multiple
