@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useContext, useState } from "react";
+import { useMutation } from "react-query";
 import { toast } from "react-toastify";
+import { EstateMap } from "../components/EstateMap";
+import { AuthContext } from "../context/authContext";
 
 
 export default function AddListing() {
   const [loading, setLoading] = useState(false);
+  const [position, setPosition] = useState([25,25])
   const [formData, setFormData] = useState({
     title:"",
     description:"",
@@ -11,7 +16,7 @@ export default function AddListing() {
     type:"",
     surface:0,
     price:0,
-    address:"",
+    localisation:"",
     wilaya:"",
     commune:"",
     uploaded_photos:{},
@@ -23,21 +28,24 @@ export default function AddListing() {
     type,
     surface,
     price,
-    address,
+    localisation,
     wilaya,
     commune,
     uploaded_photos,
   } = formData;
+  const { token, user } = useContext(AuthContext)?.authState;
+  const router = useRouter()
 
 
   function dateToYMD(date) {
     var d = date.getDate();
     var m = date.getMonth() + 1; //Month from 0 to 11
     var y = date.getFullYear();
-    return '' + y + '/' + (m<=9 ? '0' + m : m) + '/' + (d <= 9 ? '0' + d : d);
+    return '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
 }
 
 
+  let f = new FormData();
   function onChange(e) {
     // Files
     if (e.target.files) {
@@ -57,7 +65,7 @@ export default function AddListing() {
   async function onSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    if (images.length > 6 || images.length < 3) {
+    if (uploaded_photos.length > 6 || uploaded_photos.length < 3) {
       setLoading(false);
       toast.error("min 3 & max 6 images are allowed");
       return;
@@ -67,10 +75,41 @@ export default function AddListing() {
       ...formData,
       pub_date: dateToYMD(new Date()),
     };
-    setLoading(false);
-    toast.success("Listing created");
-    // navigate(`/category/${formDataCopy.type}/${docRef.id}`);
+    
+    Object.keys(formDataCopy).forEach(function(key, index) {
+      if (key === "uploaded_photos") {
+        for (let index = 0; index < formDataCopy[key].length; index++) {
+          f.append(key,formDataCopy[key][index])
+          
+        }
+      } else {
+        f.append(key,formDataCopy[key])
+      }
+      
+    });
+    f.append("longitude",position[0]);
+    f.append("latitude", position[1]);
+  
+  fetch("http://127.0.0.1:8000/post_rea/", 
+  {
+    method: "POST",
+    body: f,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  .then(response => response.json())
+  .then(result => {
+    console.log(result)
+    
+    router.push(`/details/${result.id}`)
+  })
+  .catch(error => console.log('error', error));
+  setLoading(false);
+  toast.success("Listing created");
+  router.push(`/details/${result.id}`)
   }
+  
 
   if (loading) {
     return <div>Loading</div>;
@@ -87,8 +126,6 @@ export default function AddListing() {
           value={title}
           onChange={onChange}
           placeholder="Title"
-          maxLength="32"
-          minLength="10"
           required
           className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
         />
@@ -110,7 +147,7 @@ export default function AddListing() {
             value="sale"
             onClick={onChange}
             className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              type === "sale"
+              category !== "sale"
                 ? "bg-white text-black"
                 : "bg-blue-600 text-white"
             }`}
@@ -123,7 +160,7 @@ export default function AddListing() {
             value="exchange"
             onClick={onChange}
             className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              type === "exchange"
+              category !== "exchange"
                 ? "bg-white text-black"
                 : "bg-blue-600 text-white"
             }`}
@@ -136,7 +173,7 @@ export default function AddListing() {
             value="rental"
             onClick={onChange}
             className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              type === "rental"
+              category !== "rental"
                 ? "bg-white text-black"
                 : "bg-blue-600 text-white"
             }`}
@@ -149,7 +186,7 @@ export default function AddListing() {
             value="Rental for holidays"
             onClick={onChange}
             className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              type === "Rental for holidays"
+              category !== "Rental for holidays"
                 ? "bg-white text-black"
                 : "bg-blue-600 text-white"
             }`}
@@ -165,8 +202,6 @@ export default function AddListing() {
           value={type}
           onChange={onChange}
           placeholder="Type"
-          maxLength="32"
-          minLength="10"
           required
           className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
         />
@@ -215,8 +250,8 @@ export default function AddListing() {
         <p className="text-lg mt-6 font-semibold">Address</p>
         <textarea
           type="text"
-          id="address"
-          value={address}
+          id="localisation"
+          value={localisation}
           onChange={onChange}
           placeholder="Address"
           required
@@ -231,8 +266,6 @@ export default function AddListing() {
           value={wilaya}
           onChange={onChange}
           placeholder="Wilaya"
-          maxLength="32"
-          minLength="10"
           required
           className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
         />
@@ -244,8 +277,6 @@ export default function AddListing() {
           value={commune}
           onChange={onChange}
           placeholder="Commune"
-          maxLength="32"
-          minLength="10"
           required
           className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
         />
@@ -265,6 +296,9 @@ export default function AddListing() {
             required
             className="w-full px-3 py-1.5 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:bg-white focus:border-blue-600"
           />
+        </div>
+        <div>
+          <EstateMap position={position} setPosition={setPosition}/>
         </div>
         <button
           type="submit"

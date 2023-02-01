@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import HouseCard from "../components/HouseCard";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { DetailsMap } from "../components/DetailsMap";
 
 export default function Details({id}) {
   const router = useRouter();
@@ -11,6 +12,8 @@ export default function Details({id}) {
   const [index, setIndex] = useState(0);
   const [index1, setIndex1] = useState(1);
   const [index2, setIndex2] = useState(2);
+  const [description,setDescription] = useState("")
+  const [proposal,setProposal] = useState("")
   const userObj = JSON.parse(localStorage.getItem("user"));
   const token = userObj?.token;
   const { isLoading:load, isError, data:detail, error } = useQuery(["details",id], async () => {
@@ -167,7 +170,7 @@ export default function Details({id}) {
                   layout="responsive"
                   objectFit="contain"
                 />
-                {detail.photos[index2+1] && <button
+                {detail.photos[3] && <button
                   onClick={() => setShowModal(true)}
                   className="absolute bottom-3 right-3 bg-white text-xl font-semibold px-6 py-3 rounded-xl flex gap-3 items-center"
                 >
@@ -300,6 +303,9 @@ export default function Details({id}) {
               </div>
             </div>
             <div>
+              <DetailsMap longitude={detail.longitude} latitude={detail.latitude}/>
+            </div>
+            <div>
               <h1 className="text-3xl font-semibold py-3">Latest</h1>
               <div className="grid grid-cols-2 gap-x-6 gap-y-3">
                   {last
@@ -314,6 +320,29 @@ export default function Details({id}) {
               <h1 className="text-2xl font-bold text-secondary">
                 {detail.price} DA
               </h1>
+              <p className="text-lg mt-6 font-semibold">Description</p>
+              <textarea
+                type="text"
+                id="description"
+                value={description}
+                onChange={(e)=> setDescription(e.target.value)}
+                placeholder="Description"
+                required
+                className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
+              />
+              <p className="text-lg font-semibold">Proposal</p>
+              <div className="flex w-full justify-center items-center space-x-6">
+                <input
+                  type="number"
+                  id="proposal"
+                  value={proposal}
+                  onChange={(e)=> setProposal(e.target.value)}
+                  min="50"
+                  max="400000000"
+                  required
+                  className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
+                />
+              </div>
               <button className="text-white bg-secondary w-full rounded-lg py-4 flex gap-2 justify-center items-center">
                 <svg
                   className="w-6 h-6"
