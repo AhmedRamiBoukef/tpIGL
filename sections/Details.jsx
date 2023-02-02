@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState, useContext } from "react";
 import { Carousel } from "../components/Carousel";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import HouseCard from "../components/HouseCard";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { DetailsMap } from "../components/DetailsMap";
+import { AuthContext } from "../context/authContext";
 
-export default function Details({id}) {
+export default function Details({ id }) {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [index, setIndex] = useState(0);
@@ -16,7 +17,12 @@ export default function Details({id}) {
   const [proposal,setProposal] = useState("")
   const userObj = JSON.parse(localStorage.getItem("user"));
   const token = userObj?.token;
-  const { isLoading:load, isError, data:detail, error } = useQuery(["details",id], async () => {
+  const {
+    isLoading: load,
+    isError,
+    data: detail,
+    error,
+  } = useQuery(["details", id], async () => {
     const data = await fetch(`http://127.0.0.1:8000/rea_of_id/${id}/`, {
       method: "GET",
       headers: {
@@ -25,13 +31,13 @@ export default function Details({id}) {
     });
     return data.json();
   });
-  const { data:last } = useQuery("last", async () => {
+  const { data: last } = useQuery("last", async () => {
     const data = await fetch("http://127.0.0.1:8000/last/");
     return data.json();
   });
   const queryClient = useQueryClient();
   const isLiked = () => favs?.some((rea) => rea.id === detail.id);
-  const { data:favs } = useQuery("favs", async () => {
+  const { data: favs } = useQuery("favs", async () => {
     const data = await fetch("http://127.0.0.1:8000/favs_of_user/", {
       method: "GET",
       headers: {
@@ -85,12 +91,24 @@ export default function Details({id}) {
     }
   }
 
-  if (load) return (<p className="w-full h-[100vh] flex justify-center items-center"> Loading...</p>);
-  if (isError)return (<p className="w-full h-[100vh] flex justify-center items-center">{error.message}</p>);
+  if (load)
+    return (
+      <p className="w-full h-[100vh] flex justify-center items-center">
+        {" "}
+        Loading...
+      </p>
+    );
+  if (isError)
+    return (
+      <p className="w-full h-[100vh] flex justify-center items-center">
+        {error.message}
+      </p>
+    );
   return (
     <div>
       <div className="container mb-14">
-        <div className="flex text-2xl text-secondary gap-3 cursor-pointer font-semibold"
+        <div
+          className="flex items-center text-2xl text-secondary gap-3 cursor-pointer font-semibold"
           onClick={() => router.push("/app")}
         >
           <svg
@@ -111,43 +129,45 @@ export default function Details({id}) {
         </div>
         <div className="pt-4 pb-2 text-4xl font-bold flex justify-between items-center">
           <h1>{detail.title}</h1>
-          <button
-            onClick={() => {
-              isLiked() ? mutation.mutate("DELETE") : mutation.mutate("POST");
-            }}
-            className="text-xl hover:bg-blue-200 text-secondary font-semibold py-2 px-3 sm:px-6 sm:py-3 rounded-xl flex gap-3 items-center border-secondary border bg-blue-100"
-          >
-            {favs && isLiked() ? (
-              <svg
-                className="w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-            )}
-            Favorite
-          </button>
+          {detail?.owner.id !== user?.id ? (
+            <button
+              onClick={() => {
+                isLiked() ? mutation.mutate("DELETE") : mutation.mutate("POST");
+              }}
+              className="text-xl hover:bg-blue-200 text-secondary font-semibold py-2 px-3 sm:px-6 sm:py-3 rounded-xl flex gap-3 items-center border-secondary border bg-blue-100"
+            >
+              {favs && isLiked() ? (
+                <svg
+                  className="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              )}
+              Favorite
+            </button>
+          ) : null}
         </div>
         <p className="pb-4 text-2xl text-gray-500">{detail.localisation}</p>
         <div className="py-2 lg:grid grid-cols-3 gap-6">
@@ -160,57 +180,61 @@ export default function Details({id}) {
             layout="responsive"
             objectFit="contain"
           />
-          {detail.photos[index1] && <div className="flex mb-6 lg:mb-0 flex-col justify-between items-center gap-6">
-            <img
-              onClick={() => {
-                setIndex(index1);
-                setIndex1(index);
-              }}
-              className="rounded-xl"
-              src={`http://127.0.0.1:8000${detail.photos[index1].photo}`}
-              alt=""
-              height="100%"
-              width="100%"
-              layout="responsive"
-              objectFit="contain"
-            />
-            {detail.photos[index2] && (
-              <div className="relative">
-                <img
-                  onClick={() => {
-                    setIndex(index2);
-                    setIndex2(index);
-                  }}
-                  className="rounded-xl"
-                  src={`http://127.0.0.1:8000${detail.photos[index2].photo}`}
-                  alt=""
-                  height="100%"
-                  width="100%"
-                  layout="responsive"
-                  objectFit="contain"
-                />
-                {detail.photos[3] && <button
-                  onClick={() => setShowModal(true)}
-                  className="absolute bottom-3 right-3 bg-white text-xl font-semibold px-6 py-3 rounded-xl flex gap-3 items-center"
-                >
-                  <svg
-                    className="w-6 h-6 "
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
-                  All Images
-                </button>}
-              </div>
-            )}
-          </div>}
+          {detail.photos[index1] && (
+            <div className="flex mb-6 lg:mb-0 flex-col justify-between items-center gap-6">
+              <img
+                onClick={() => {
+                  setIndex(index1);
+                  setIndex1(index);
+                }}
+                className="rounded-xl"
+                src={`http://127.0.0.1:8000${detail.photos[index1].photo}`}
+                alt=""
+                height="100%"
+                width="100%"
+                layout="responsive"
+                objectFit="contain"
+              />
+              {detail.photos[index2] && (
+                <div className="relative">
+                  <img
+                    onClick={() => {
+                      setIndex(index2);
+                      setIndex2(index);
+                    }}
+                    className="rounded-xl"
+                    src={`http://127.0.0.1:8000${detail.photos[index2].photo}`}
+                    alt=""
+                    height="100%"
+                    width="100%"
+                    layout="responsive"
+                    objectFit="contain"
+                  />
+                  {detail.photos[index2 + 1] && (
+                    <button
+                      onClick={() => setShowModal(true)}
+                      className="absolute bottom-3 right-3 bg-white text-xl font-semibold px-6 py-3 rounded-xl flex gap-3 items-center"
+                    >
+                      <svg
+                        className="w-6 h-6 "
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                      All Images
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </div>
         <div className="mt-8 lg:grid grid-cols-3 gap-6">
           <div className="col-span-2 mb-6 lg:mb-0">
@@ -393,6 +417,14 @@ export default function Details({id}) {
             <div className="opacity-75 fixed inset-0 z-40 bg-black"></div>
           </>
         ) : null}
+        <div>
+          <h1 className="text-4xl font-semibold my-10">Latest</h1>
+          <div className="flex justify-center md:justify-start gap-8 flex-wrap">
+            {last
+              ? last.map((house) => <HouseCard key={house.id} house={house} />)
+              : null}
+          </div>
+        </div>
       </div>
     </div>
   );

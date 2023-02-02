@@ -38,7 +38,13 @@ function Nav() {
               key={section}
               className="relative before:content[''] before:w-0 before:h-[2px] hover:before:w-full before:absolute before:left-0 before:-bottom-1 before:bg-transparent md:before:bg-primary before:transition-all"
             >
-              <Link href={`/app/${section}`}>{section}</Link>
+              <Link
+                href={
+                  section !== "offers" ? `/app/${section}` : "/app/offers/sent"
+                }
+              >
+                {section}
+              </Link>
             </li>
           ))}
           <li className="self-center">
