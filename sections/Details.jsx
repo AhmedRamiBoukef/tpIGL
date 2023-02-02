@@ -13,10 +13,9 @@ export default function Details({ id }) {
   const [index, setIndex] = useState(0);
   const [index1, setIndex1] = useState(1);
   const [index2, setIndex2] = useState(2);
-  const [description,setDescription] = useState("")
-  const [proposal,setProposal] = useState("")
-  const userObj = JSON.parse(localStorage.getItem("user"));
-  const token = userObj?.token;
+  const [description, setDescription] = useState("");
+  const [proposal, setProposal] = useState("");
+  const { token, user } = useContext(AuthContext)?.authState;
   const {
     isLoading: load,
     isError,
@@ -80,16 +79,17 @@ export default function Details({ id }) {
         method: "POST",
         body: JSON.stringify({
           description: description,
-          proposal: proposal
+          proposal: proposal,
         }),
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-      }).then(res => res.json())
-      .then(res => toast.error("Description & Proposal must not be empty"))
+      })
+        .then((res) => res.json())
+        .then((res) => toast.error("Description & Proposal must not be empty"));
     }
-  }
+  };
 
   if (load)
     return (
@@ -346,14 +346,19 @@ export default function Details({ id }) {
               </div>
             </div>
             <div>
-              <DetailsMap longitude={detail.longitude} latitude={detail.latitude}/>
+              <DetailsMap
+                longitude={detail.longitude}
+                latitude={detail.latitude}
+              />
             </div>
             <div>
               <h1 className="text-3xl font-semibold py-3">Latest</h1>
               <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-                  {last
-              ? last.map((house) => <HouseCard key={house.id} house={house} />)
-              : null}
+                {last
+                  ? last.map((house) => (
+                      <HouseCard key={house.id} house={house} />
+                    ))
+                  : null}
               </div>
             </div>
           </div>
@@ -368,7 +373,7 @@ export default function Details({ id }) {
                 type="text"
                 id="description"
                 value={description}
-                onChange={(e)=> setDescription(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
                 placeholder="Description"
                 required
                 className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
@@ -379,14 +384,17 @@ export default function Details({ id }) {
                   type="number"
                   id="proposal"
                   value={proposal}
-                  onChange={(e)=> setProposal(e.target.value)}
+                  onChange={(e) => setProposal(e.target.value)}
                   min="50"
                   max="400000000"
                   required
                   className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
                 />
               </div>
-              <button onClick={handleApply} className="text-white bg-secondary w-full rounded-lg py-4 flex gap-2 justify-center items-center">
+              <button
+                onClick={handleApply}
+                className="text-white bg-secondary w-full rounded-lg py-4 flex gap-2 justify-center items-center"
+              >
                 <svg
                   className="w-6 h-6"
                   fill="none"
