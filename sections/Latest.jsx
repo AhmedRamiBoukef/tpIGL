@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useQuery } from 'react-query';
 import HouseCard from '../components/HouseCard';
+import LightHouseCard from '../components/LightHouseCard';
 import { Title } from '../components/Title'
 import Latest1 from "../images/Latest1.png"
 
@@ -51,10 +52,9 @@ function Latest() {
     <div className='container my-10'>
         <Title section='Latest Projects' title='Make your dream project with Estato' />
         <div>
-              <h1 className="text-3xl font-semibold py-3">Latest</h1>
-              <div className="grid grid-cols-3 gap-x-6 gap-y-3">
+              <div className="flex justify-center md:justify-start flex-wrap gap-4 mt-12">
                   {last
-              ? last.map((house) => <HouseCard key={house.id} house={house} />)
+              ? last.map((house) => <LightHouseCard key={house.id} house={house} />)
               : null}
               </div>
             </div>
