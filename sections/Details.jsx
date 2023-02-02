@@ -17,6 +17,7 @@ export default function Details({ id }) {
   const [proposal,setProposal] = useState("")
   const userObj = JSON.parse(localStorage.getItem("user"));
   const token = userObj?.token;
+  const user = userObj?.user;
   const {
     isLoading: load,
     isError,
@@ -348,14 +349,7 @@ export default function Details({ id }) {
             <div>
               <DetailsMap longitude={detail.longitude} latitude={detail.latitude}/>
             </div>
-            <div>
-              <h1 className="text-3xl font-semibold py-3">Latest</h1>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-                  {last
-              ? last.map((house) => <HouseCard key={house.id} house={house} />)
-              : null}
-              </div>
-            </div>
+            
           </div>
           <div>
             <div className="rounded-xl border p-4 flex flex-col gap-4">
