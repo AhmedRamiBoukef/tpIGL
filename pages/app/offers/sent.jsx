@@ -20,7 +20,7 @@ function sent() {
   return (
     <div>
       <Nav />
-      <div className="container">
+      <div className="container pb-12">
         <h2 className="mt-10 font-semibold text-primary text-4xl">Offers</h2>
         <Tabs current="sent" />
         <div className="flex justify-center md:justify-start gap-2  mt-10">

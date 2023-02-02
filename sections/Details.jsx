@@ -321,16 +321,6 @@ export default function Details({ id }) {
                 </div>
               </div>
             </div>
-            <div>
-              <h1 className="text-3xl font-semibold py-3">Latest</h1>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-                {last
-                  ? last.map((house) => (
-                      <HouseCard key={house.id} house={house} />
-                    ))
-                  : null}
-              </div>
-            </div>
           </div>
           <div>
             <div className="rounded-xl border p-4 flex flex-col gap-4">
@@ -369,6 +359,14 @@ export default function Details({ id }) {
             <div className="opacity-75 fixed inset-0 z-40 bg-black"></div>
           </>
         ) : null}
+        <div>
+          <h1 className="text-4xl font-semibold my-10">Latest</h1>
+          <div className="flex justify-center md:justify-start gap-8 flex-wrap">
+            {last
+              ? last.map((house) => <HouseCard key={house.id} house={house} />)
+              : null}
+          </div>
+        </div>
       </div>
     </div>
   );
