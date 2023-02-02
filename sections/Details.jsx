@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import HouseCard from "../components/HouseCard";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { DetailsMap } from "../components/DetailsMap";
 import { AuthContext } from "../context/authContext";
 
 export default function Details({ id }) {
@@ -12,7 +13,10 @@ export default function Details({ id }) {
   const [index, setIndex] = useState(0);
   const [index1, setIndex1] = useState(1);
   const [index2, setIndex2] = useState(2);
-  const { token, user } = useContext(AuthContext)?.authState;
+  const [description,setDescription] = useState("")
+  const [proposal,setProposal] = useState("")
+  const userObj = JSON.parse(localStorage.getItem("user"));
+  const token = userObj?.token;
   const {
     isLoading: load,
     isError,
@@ -67,6 +71,26 @@ export default function Details({ id }) {
       },
     }
   );
+  const handleApply = (e) => {
+    e.preventDefault();
+    if (description === "" || proposal === "") {
+      toast.error("Description & Proposal must not be empty");
+    } else {
+      fetch(`http://127.0.0.1:8000/posting_offer/${detail.id}/`, {
+        method: "POST",
+        body: JSON.stringify({
+          description: description,
+          proposal: proposal
+        }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }).then(res => res.json())
+      .then(res => toast.error("Description & Proposal must not be empty"))
+    }
+  }
+
   if (load)
     return (
       <p className="w-full h-[100vh] flex justify-center items-center">
@@ -321,6 +345,17 @@ export default function Details({ id }) {
                 </div>
               </div>
             </div>
+            <div>
+              <DetailsMap longitude={detail.longitude} latitude={detail.latitude}/>
+            </div>
+            <div>
+              <h1 className="text-3xl font-semibold py-3">Latest</h1>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+                  {last
+              ? last.map((house) => <HouseCard key={house.id} house={house} />)
+              : null}
+              </div>
+            </div>
           </div>
           <div>
             <div className="rounded-xl border p-4 flex flex-col gap-4">
@@ -328,7 +363,30 @@ export default function Details({ id }) {
               <h1 className="text-2xl font-bold text-secondary">
                 {detail.price} DA
               </h1>
-              <button className="text-white bg-secondary w-full rounded-lg py-4 flex gap-2 justify-center items-center">
+              <p className="text-lg mt-6 font-semibold">Description</p>
+              <textarea
+                type="text"
+                id="description"
+                value={description}
+                onChange={(e)=> setDescription(e.target.value)}
+                placeholder="Description"
+                required
+                className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
+              />
+              <p className="text-lg font-semibold">Proposal</p>
+              <div className="flex w-full justify-center items-center space-x-6">
+                <input
+                  type="number"
+                  id="proposal"
+                  value={proposal}
+                  onChange={(e)=> setProposal(e.target.value)}
+                  min="50"
+                  max="400000000"
+                  required
+                  className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
+                />
+              </div>
+              <button onClick={handleApply} className="text-white bg-secondary w-full rounded-lg py-4 flex gap-2 justify-center items-center">
                 <svg
                   className="w-6 h-6"
                   fill="none"

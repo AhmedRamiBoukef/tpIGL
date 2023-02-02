@@ -31,6 +31,7 @@ function Header() {
         console.log(err);
         toast.error(err.message);
       });
+      console.log(response.credential);
 
   }, []);
   return (
