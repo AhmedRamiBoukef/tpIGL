@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useContext, useState } from "react";
 import { AuthContext } from "../context/authContext";
-const sections = ["Sell", "favourites"];
+const sections = ["sell", "favourites"];
 function Nav() {
   const [menuActive, setMenuActive] = useState(false);
   const { setAuthState } = useContext(AuthContext);
@@ -18,6 +18,7 @@ function Nav() {
   }, []);
   return (
     <div className="bg-white">
+      
       <div className="container flex items-center md:justify-between min-h-[5rem]">
         <Link href="/app" className="text-secondary font-semibold text-xl ">
           Estato

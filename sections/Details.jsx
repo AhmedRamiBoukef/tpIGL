@@ -65,6 +65,25 @@ export default function Details({id}) {
       },
     }
   );
+  const handleApply = (e) => {
+    e.preventDefault();
+    if (description === "" || proposal === "") {
+      toast.error("Description & Proposal must not be empty");
+    } else {
+      fetch(`http://127.0.0.1:8000/posting_offer/${detail.id}/`, {
+        method: "POST",
+        body: JSON.stringify({
+          description: description,
+          proposal: proposal
+        }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }).then(res => res.json())
+      .then(res => toast.error("Description & Proposal must not be empty"))
+    }
+  }
 
   if (load) return (<p className="w-full h-[100vh] flex justify-center items-center"> Loading...</p>);
   if (isError)return (<p className="w-full h-[100vh] flex justify-center items-center">{error.message}</p>);
@@ -343,7 +362,7 @@ export default function Details({id}) {
                   className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
                 />
               </div>
-              <button className="text-white bg-secondary w-full rounded-lg py-4 flex gap-2 justify-center items-center">
+              <button onClick={handleApply} className="text-white bg-secondary w-full rounded-lg py-4 flex gap-2 justify-center items-center">
                 <svg
                   className="w-6 h-6"
                   fill="none"
