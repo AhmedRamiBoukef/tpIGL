@@ -21,9 +21,8 @@ function favourites() {
   return (
     <div>
       <Nav />
-      
       <div className="container">
-      <div className="flex text-2xl text-secondary gap-3 cursor-pointer font-semibold"
+      <div className="flex items-center text-2xl text-secondary gap-3 cursor-pointer font-semibold"
           onClick={() => router.push("/app")}
         >
           <svg
@@ -55,7 +54,6 @@ function favourites() {
           <p className="py-10 text-primary text-center">Nothing found !</p>
         )}
       </div>
-      <Pagefooter />
     </div>
   );
 }

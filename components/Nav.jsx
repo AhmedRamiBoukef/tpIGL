@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useContext, useState } from "react";
 import { AuthContext } from "../context/authContext";
-const sections = ["Sell", "favourites"];
+const sections = ["Sell", "favourites", "offers"];
 function Nav() {
   const [menuActive, setMenuActive] = useState(false);
   const { setAuthState } = useContext(AuthContext);
@@ -37,7 +37,13 @@ function Nav() {
               key={section}
               className="relative before:content[''] before:w-0 before:h-[2px] hover:before:w-full before:absolute before:left-0 before:-bottom-1 before:bg-transparent md:before:bg-primary before:transition-all"
             >
-              <Link href={`/app/${section}`}>{section}</Link>
+              <Link
+                href={
+                  section !== "offers" ? `/app/${section}` : "/app/offers/sent"
+                }
+              >
+                {section}
+              </Link>
             </li>
           ))}
           <li className="self-center">
