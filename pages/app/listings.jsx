@@ -6,7 +6,7 @@ import HouseCard from "../../components/HouseCard";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-function listed() {
+function listings() {
   const router = useRouter();
   const { token } = useContext(AuthContext)?.authState;
   const { data } = useQuery("listings", async () => {
@@ -61,4 +61,4 @@ function listed() {
   );
 }
 
-export default listed;
+export default listings;
