@@ -31,8 +31,6 @@ function Header() {
         console.log(err);
         toast.error(err.message);
       });
-      console.log(response.credential);
-
   }, []);
   return (
     <div className="container flex items-center md:justify-between min-h-[5rem]">
