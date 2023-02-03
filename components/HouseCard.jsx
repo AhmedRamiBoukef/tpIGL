@@ -1,10 +1,11 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import Image from "next/image";
 import {
   ArrowsPointingOutIcon,
   HeartIcon,
   HomeModernIcon,
   MapPinIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
 import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
 import { useMutation, useQuery, useQueryClient } from "react-query";
@@ -49,7 +50,7 @@ function HouseCard({ house }) {
     }
   );
   return (
-    <li className="bg-white rounded-lg max-w-[350px] flex flex-col">
+    <li className="bg-white rounded-lg max-w-[350px] min-h-full flex flex-col  shadow">
       <Image
         className="rounded-t-lg object-cover"
         src={"http://127.0.0.1:8000" + house.photos[0].photo}

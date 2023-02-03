@@ -23,7 +23,7 @@ function OfferCard({ offer, sent }) {
     return await data.json();
   });
   return data ? (
-    <li className="bg-white rounded-lg max-w-[350px] flex flex-col">
+    <div className="bg-white rounded-lg max-w-[350px] flex flex-col shadow">
       <Image
         className="rounded-t-lg object-cover"
         src={"http://127.0.0.1:8000" + data.photos[0].photo}
@@ -38,30 +38,17 @@ function OfferCard({ offer, sent }) {
           <p className="text-primary capitalize">
             {sent
               ? `to: ${data.owner.username}`
-              : `from: ${offer.offerer.username}`} <br/>
-              Proposal: {offer.proposal} DA
+              : `from: ${offer.offerer.username}`}{" "}
+            <br />
+            Proposal: {offer.proposal} DA
           </p>
           <img
             className="rounded-full w-11 h-11"
             src={sent ? data.owner.picture : offer.offerer.picture}
           />
         </div>
-        <ul className="flex items-center justify-between flex-wrap gap-y-2 pt-4 mt-auto border-t-2 border-t-slate-100">
-          <li className="flex items-center gap-1">
-            <HomeModernIcon className="w-6 h-6 text-secondary" />
-            <span className="text-slate-500 text-sm">{data.type}</span>
-          </li>
-          <li className="flex items-center gap-1">
-            <MapPinIcon className="w-6 h-6 text-secondary" />
-            <span className="text-slate-500 text-sm">{data.localisation}</span>
-          </li>
-          <li className="flex items-center gap-1">
-            <ArrowsPointingOutIcon className="w-6 h-6 text-secondary" />
-            <span className="text-slate-500 text-sm">{data.surface}m</span>
-          </li>
-        </ul>
       </div>
-    </li>
+    </div>
   ) : null;
 }
 

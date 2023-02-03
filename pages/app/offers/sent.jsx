@@ -25,9 +25,9 @@ function sent() {
         <Tabs current="sent" />
         <div className="flex justify-center md:justify-between flex-wrap gap-4  mt-10">
           {data?.map((offer) => (
-            <Link href={`/details/${offer.real_estate}`}>
-              <OfferCard key={offer.real_estate} offer={offer} sent />
-            </Link>
+              <Link href={`/details/${offer.real_estate}`}>
+                <OfferCard key={offer.real_estate} offer={offer} sent />
+              </Link>
           ))}
         </div>
       </div>

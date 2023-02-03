@@ -109,7 +109,11 @@ function Search() {
       </form>
       <ul className="py-10 flex flex-wrap justify-center lg:justify-between gap-5">
         {data
-          ? data.map((house) => <Link href={`/details/${house.id}`}><HouseCard key={house.id} house={house} /></Link>)
+          ? data.map((house) => (
+              <Link href={`/details/${house.id}`}>
+                <HouseCard key={house.id} house={house} />
+              </Link>
+            ))
           : null}
       </ul>
     </div>

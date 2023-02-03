@@ -4,7 +4,6 @@ import Nav from "../../components/Nav";
 import { AuthContext } from "../../context/authContext";
 import HouseCard from "../../components/HouseCard";
 import { useRouter } from "next/router";
-import Pagefooter from "../../sections/Pagefooter";
 
 function favourites() {
   const router = useRouter();
@@ -22,7 +21,8 @@ function favourites() {
     <div>
       <Nav />
       <div className="container">
-      <div className="flex items-center text-2xl text-secondary gap-3 cursor-pointer font-semibold"
+        <div
+          className="flex items-center text-2xl text-secondary gap-3 cursor-pointer font-semibold"
           onClick={() => router.push("/app")}
         >
           <svg
@@ -45,11 +45,11 @@ function favourites() {
           Your favourite real estates
         </h2>
         {data?.length ? (
-          <div className="py-10 flex flex-wrap justify-center  gap-5">
+          <ul className="py-10 flex flex-wrap justify-center gap-5">
             {data.map((house) => (
               <HouseCard key={house.id} house={house} />
             ))}
-          </div>
+          </ul>
         ) : (
           <p className="py-10 text-primary text-center">Nothing found !</p>
         )}
