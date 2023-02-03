@@ -119,7 +119,7 @@ export default function AddListing() {
         <h1 className="text-3xl text-center mt-6 font-bold">Create a Listing</h1>
         <form onSubmit={onSubmit}>
           
-          <p className="text-lg mt-6 font-semibold">Title</p>
+          <p className="mt-6 mb-2 font-semibold">Title</p>
           <input
             type="text"
             id="title"
@@ -129,7 +129,7 @@ export default function AddListing() {
             required
             className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
           />
-          <p className="text-lg mt-6 font-semibold">Description</p>
+          <p className="mt-6 mb-2 font-semibold">Description</p>
           <textarea
             type="text"
             id="description"
@@ -139,7 +139,7 @@ export default function AddListing() {
             required
             className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
           />
-          <p className="text-lg mt-6 font-semibold">Category</p>
+          <p className="mt-6 mb-2 font-semibold">Category</p>
           <div className="grid grid-cols-2 gap-4">
             <button
               type="button"
@@ -195,7 +195,7 @@ export default function AddListing() {
             </button>
           </div>
 
-          <p className="text-lg mt-6 font-semibold">Type</p>
+          <p className="mt-6 mb-2 font-semibold">Type</p>
           <input
             type="text"
             id="type"
@@ -206,7 +206,7 @@ export default function AddListing() {
             className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
           />
 
-            <p className="text-lg font-semibold">Surface</p>
+            <p className="mt-6 mb-2 font-semibold">Surface</p>
             <div className="flex w-full justify-center items-center space-x-6">
               <input
                 type="number"
@@ -225,7 +225,7 @@ export default function AddListing() {
           
           <div className="flex items-center mb-6">
             <div className="">
-              <p className="text-lg font-semibold">Price</p>
+              <p className="mt-6 mb-2 font-semibold">Price</p>
               <div className="flex w-full justify-center items-center space-x-6">
                 <input
                   type="number"
@@ -247,7 +247,7 @@ export default function AddListing() {
 
           
           
-          <p className="text-lg mt-6 font-semibold">Address</p>
+          <p className="mt-6 mb-2 font-semibold">Address</p>
           <textarea
             type="text"
             id="localisation"
@@ -259,7 +259,7 @@ export default function AddListing() {
           />
 
 
-          <p className="text-lg mt-6 font-semibold">Wilaya</p>
+          <p className="mt-6 mb-2 font-semibold">Wilaya</p>
           <input
             type="text"
             id="wilaya"
@@ -270,7 +270,7 @@ export default function AddListing() {
             className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
           />
 
-        <p className="text-lg mt-6 font-semibold">Commune</p>
+        <p className="mt-6 mb-2 font-semibold">Commune</p>
           <input
             type="text"
             id="commune"
@@ -283,7 +283,7 @@ export default function AddListing() {
 
           
           <div className="mb-6">
-            <p className="text-lg font-semibold">Images</p>
+            <p className="mt-6 mb-2 font-semibold">Images</p>
             <p className="text-gray-600">
               The first image will be the cover (min3 & max 6)
             </p>
@@ -298,7 +298,7 @@ export default function AddListing() {
             />
           </div>
           <div>
-            <p className="text-gray-600">
+            <p className="mt-6 mb-2 font-semibold">
               Choose the exact location on the map
             </p>
             <EstateMap position={position} setPosition={setPosition}/>

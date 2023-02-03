@@ -23,7 +23,7 @@ function received() {
       <div className="container pb-12">
         <h2 className="mt-10 font-semibold text-primary text-4xl">Offers</h2>
         <Tabs current="received" />
-        <div className="flex justify-center md:justify-start gap-2  mt-10">
+        <div className="flex justify-center md:justify-between flex-wrap gap-4   mt-10">
           {data?.map((offer) => (
             <Link href={`/details/${offer.real_estate}`}>
               <OfferCard key={offer.real_estate} offer={offer} />

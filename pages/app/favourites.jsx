@@ -45,7 +45,7 @@ function favourites() {
           Your favourite real estates
         </h2>
         {data?.length ? (
-          <div className="py-10 flex flex-wrap justify-center lg:justify-between gap-5">
+          <div className="py-10 flex flex-wrap justify-center  gap-5">
             {data.map((house) => (
               <HouseCard key={house.id} house={house} />
             ))}

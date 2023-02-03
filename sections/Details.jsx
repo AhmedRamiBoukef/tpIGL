@@ -75,6 +75,7 @@ export default function Details({ id }) {
     if (description === "" || proposal === "") {
       toast.error("Description & Proposal must not be empty");
     } else {
+      console.log("hi")
       fetch(`http://127.0.0.1:8000/posting_offer/${detail.id}/`, {
         method: "POST",
         body: JSON.stringify({
@@ -87,7 +88,6 @@ export default function Details({ id }) {
         },
       })
         .then((res) => res.json())
-        .then((res) => toast.error("Description & Proposal must not be empty"));
     }
   };
 
@@ -351,68 +351,60 @@ export default function Details({ id }) {
                 latitude={detail.latitude}
               />
             </div>
+          </div>
+          {detail?.owner.id !== user?.id ? (
             <div>
-              <h1 className="text-3xl font-semibold py-3">Latest</h1>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-                {last
-                  ? last.map((house) => (
-                      <HouseCard key={house.id} house={house} />
-                    ))
-                  : null}
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="rounded-xl border p-4 flex flex-col gap-4">
-              <h1 className="text-xl text-gray-500">Price</h1>
-              <h1 className="text-2xl font-bold text-secondary">
-                {detail.price} DA
-              </h1>
-              <p className="text-lg mt-6 font-semibold">Description</p>
-              <textarea
-                type="text"
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Description"
-                required
-                className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
-              />
-              <p className="text-lg font-semibold">Proposal</p>
-              <div className="flex w-full justify-center items-center space-x-6">
-                <input
-                  type="number"
-                  id="proposal"
-                  value={proposal}
-                  onChange={(e) => setProposal(e.target.value)}
-                  min="50"
-                  max="400000000"
+              <div className="rounded-xl border p-4 flex flex-col gap-4">
+                <h1 className="text-xl text-gray-500">Price</h1>
+                <h1 className="text-2xl font-bold text-secondary">
+                  {detail.price} DA
+                </h1>
+                <p className="text-lg mt-6 font-semibold">Description</p>
+                <textarea
+                  type="text"
+                  id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Description"
                   required
-                  className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
+                  className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
                 />
-              </div>
-              <button
-                onClick={handleApply}
-                className="text-white bg-secondary w-full rounded-lg py-4 flex gap-2 justify-center items-center"
-              >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                <p className="text-lg font-semibold">Proposal</p>
+                <div className="flex w-full justify-center items-center space-x-6">
+                  <input
+                    type="number"
+                    id="proposal"
+                    value={proposal}
+                    onChange={(e) => setProposal(e.target.value)}
+                    min="50"
+                    max="400000000"
+                    required
+                    className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
                   />
-                </svg>
-                Apply Now
-              </button>
+                </div>
+                <button
+                  onClick={handleApply}
+                  className="text-white bg-secondary w-full rounded-lg py-4 flex gap-2 justify-center items-center"
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                    />
+                  </svg>
+                  Apply Now
+                </button>
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
 
         {showModal ? (
