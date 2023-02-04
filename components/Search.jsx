@@ -107,7 +107,7 @@ function Search() {
           </div>
         </div>
       </form>
-      <ul className="py-10 flex flex-wrap justify-center lg:justify-between gap-5">
+      <ul className="py-10 flex flex-wrap justify-center lg:justify-start gap-5">
         {data
           ? data.map((house) => (
               <Link href={`/details/${house.id}`}>

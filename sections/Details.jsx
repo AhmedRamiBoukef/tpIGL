@@ -106,7 +106,9 @@ export default function Details({ id }) {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-      }).then((res) => res.json());
+      }).then(() => {
+        toast.success("offer sent");
+      });
     }
   };
 

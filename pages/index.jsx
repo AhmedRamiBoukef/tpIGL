@@ -6,7 +6,6 @@ import {
   Stats,
   AboutUS,
   Latest,
-  Team,
 } from "../sections";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Pagefooter from "../sections/Pagefooter";
@@ -25,7 +24,6 @@ export default function Home() {
         <Stats />
         <AboutUS />
         <Latest />
-        <Team />
         <Contact />
         <Pagefooter />
       </div>

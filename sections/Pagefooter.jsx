@@ -3,7 +3,7 @@ import React from "react";
 
 function Pagefooter() {
   return (
-    <footer className="relative z-10 pt-20 pb-10 lg:pt-[120px] lg:pb-20">
+    <footer className="relative text-primary z-10 pt-20 pb-10 lg:pt-[120px] lg:pb-20">
       <div className="container">
         <div className="flex flex-wrap text-center">
           <div className="w-full px-4 sm:w-2/3 lg:w-3/12 mx-auto">
@@ -36,7 +36,7 @@ function Pagefooter() {
           <div className="w-full px-4 sm:w-1/2 lg:w-2/12">
             <div className="mb-10 w-full">
               <h4 className="text-dark mb-9 text-lg font-semibold">Resources</h4>
-              <ul>
+              <ul className="text-slate-600">
                 <li className="mb-4">SaaS Development</li>
                 <li className="mb-4">Our Products</li>
                 <li className="mb-4">User Flow</li>
@@ -47,7 +47,7 @@ function Pagefooter() {
           <div className="w-full px-4 sm:w-1/2 lg:w-2/12">
             <div className="mb-10 w-full">
               <h4 className="text-dark mb-9 text-lg font-semibold">Company</h4>
-              <ul>
+              <ul className="text-slate-600">
                 <li className="mb-4">About Estato</li>
                 <li className="mb-4">Contact & Support</li>
                 <li className="mb-4">Success History</li>
@@ -58,7 +58,7 @@ function Pagefooter() {
           <div className="w-full px-4 sm:w-1/2 lg:w-2/12">
             <div className="mb-10 w-full">
               <h4 className="text-dark mb-9 text-lg font-semibold">Quick Links</h4>
-              <ul>
+              <ul className="text-slate-600">
                 <li className="mb-4">Premium Support</li>
                 <li className="mb-4">Our Services</li>
                 <li className="mb-4">Know Our Team</li>

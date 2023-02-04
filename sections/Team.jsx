@@ -14,21 +14,21 @@ function Team() {
     },
     {
       name: "BOUHAMAR Mohamedemir",
-      position: "FullStack Web Developer",
+      position: "Frontend Developer",
       imageURL: Team1,
       description:
         "Can you make it pop can you make the font bigger? nor I know somebody who can do this for a reasonable cost make it sexy you are lucky to even be doing this for us can you pimp this powerpoint, need more geometry patterns can you punch up the fun level on these icons.",
     },
     {
       name: "KOUICEM Wail",
-      position: "FullStack Web Developer",
+      position: "Backend Developer",
       imageURL: Team1,
       description:
         "Can you make it pop can you make the font bigger? nor I know somebody who can do this for a reasonable cost make it sexy you are lucky to even be doing this for us can you pimp this powerpoint, need more geometry patterns can you punch up the fun level on these icons.",
     },
     {
       name: "Younes BOUKACEM",
-      position: "FullStack Web Developer",
+      position: "Backend Developer",
       imageURL: Team1,
       description:
         "Can you make it pop can you make the font bigger? nor I know somebody who can do this for a reasonable cost make it sexy you are lucky to even be doing this for us can you pimp this powerpoint, need more geometry patterns can you punch up the fun level on these icons.",
