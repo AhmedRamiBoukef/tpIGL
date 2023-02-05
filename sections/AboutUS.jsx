@@ -13,8 +13,8 @@ function AboutUS() {
         <div className='flex md:flex-col flex-col-reverse gap-10 flex-1 mx-4 md:mx-auto'>
             <div><Image src={Aboutus2} alt='Aboutus1' width="100%" layout="responsive" objectFit="contain"/></div> 
             <div>
-                <p className='font-light text-lg text-primary my-4 w-[90%]'>Estato Group se présente comme un outil pluridisciplinaire et complet regroupant diverses maitrises et compétences utiles à l’investissement immobilier.
-OWN Group se positionne toujours et exclusivement du côté des investisseurs.
+                <p className='font-light text-lg text-primary my-4 w-[90%]'>Estato Group presents itself as a multidisciplinary and comprehensive tool bringing together various skills and skills useful for real estate investment.
+Estato Group always and exclusively positions itself on the side of investors.
 Uncommonly spacious and handsomely appointed.</p>
                 <button className='bg-secondary px-10 py-3 text-white rounded-md'>Explore</button>
             </div>

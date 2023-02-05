@@ -1,7 +1,5 @@
-import Image from "next/image";
 import React, { useState } from "react";
 import Input from "../components/Input";
-import arrow from "../public/arrow.svg";
 
 function Contact() {
   const [formData, setFormData] = useState({
